@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.lanedy.pojo.TbPermissionEntity" table="tb_permission" schema="ssh_zero">
+        <id name="permissionId" column="permission_id"/>
+        <property name="permissionName" column="permission_name"/>
+    </class>
+</hibernate-mapping>

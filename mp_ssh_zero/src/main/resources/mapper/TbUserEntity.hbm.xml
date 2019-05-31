@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.lanedy.pojo.TbUserEntity" table="tb_user" schema="ssh_zero">
+        <id name="userId" column="user_id">
+            <generator class="native"/><!-- 主键生成策略：依据本地数据库特性 -->
+        </id>
+        <property name="userName" column="user_name"/>
+        <property name="userPassword" column="user_password"/>
+        <property name="userPasswordSalt" column="user_password_salt"/>
+
+        <!-- 配置多对多关系 -->
+        <!--
+            需要在实体类中配置对应的 Set 集合
+            name：表示该 Set 集合属性名
+            table：表示数据库中确定两个表之间多对多关系的表
+            <key column="">：指定的字段名是当前配置文件 <class> 所对应的表在中间表中的外键
+         -->
+        <set name="roles" table="tb_user_role">
+            <key column="ur_user_id"></key>
+            <many-to-many column="ur_role_id"
+            class="com.lanedy.pojo.TbRoleEntity"/>
+        </set>
+    </class>
+</hibernate-mapping>

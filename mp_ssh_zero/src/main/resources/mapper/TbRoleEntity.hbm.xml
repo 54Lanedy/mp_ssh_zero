@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.lanedy.pojo.TbRoleEntity"  table="tb_role" schema="ssh_zero">
+        <id name="roleId" column="role_id">
+            <generator class="native"/>
+        </id>
+        <property name="roleName" column="role_name"/>
+        <!-- 配置多对多关系 -->
+        <!--
+            需要在实体类中配置对应的 Set 集合
+            name：表示该 Set 集合属性名
+            table：表示数据库中确定两个表之间多对多关系的表
+            <key column="">：指定的字段名是当前配置文件 <class> 所对应的表在中间表中的外键
+         -->
+        <set name="permissions" table="tb_role_permission">
+            <key column="rp_role_id"></key>
+            <many-to-many column="rp_permission_id"
+                          class="com.lanedy.pojo.TbPermissionEntity"/>
+        </set>
+    </class>
+</hibernate-mapping>
