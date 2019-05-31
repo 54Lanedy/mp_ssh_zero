@@ -1,6 +1,4 @@
 import com.lanedy.dao.IUserDao;
-import com.lanedy.pojo.TbUserEntity;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -21,10 +19,6 @@ public class SpringTest {
 
     @Test
     public void testSpring(){
-        TbUserEntity user = new TbUserEntity();
-        user.setUserName("zhangsan");
-        user.setUserPassword("123456");
-        TbUserEntity userforLogin = userDao.findUserForLogin(user);
-        Assert.assertEquals("zhangsan",userforLogin.getUserName());
+        System.out.println("输出测试");
     }
 }
