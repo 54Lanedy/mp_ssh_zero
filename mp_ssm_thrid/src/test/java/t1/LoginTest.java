@@ -1,3 +1,4 @@
+/*
 package t1;
 
 import org.apache.shiro.SecurityUtils;
@@ -11,10 +12,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
+*/
 /**
  * Created by liyue
  * Time 2019-02-21 8:59
- */
+ *//*
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/spring-*.xml"})
 @TransactionConfiguration(defaultRollback = false)
@@ -38,3 +41,4 @@ public class LoginTest {
 
     }
 }
+*/

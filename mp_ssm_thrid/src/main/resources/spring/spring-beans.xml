@@ -23,6 +23,9 @@
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
+        <!--手动赋值，解决“严重: testWhileIdle is true, validationQuery not set”异常-->
+        <property name="testWhileIdle" value="${testWhileIdle}"/>
+        <property name="validationQuery" value="${validationQuery}"/>
     </bean>
 
     <!-- 配置SqlSessionFactory对象 -->
