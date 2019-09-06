@@ -149,11 +149,11 @@
         <property name="successUrl" value="/main"/>
         <!-- 权限验证失败跳转的页面，需要配合Spring的ExceptionHandler异常处理机制使用 -->
         <property name="unauthorizedUrl" value="/jsps/unauthorized.jsp"/>
-        <!--<property name="filters">-->
-            <!--<util:map>-->
-                <!--<entry key="authc" value-ref="formAuthenticationFilter"/>-->
-            <!--</util:map>-->
-        <!--</property>-->
+        <property name="filters">
+            <util:map>
+                <entry key="authc" value-ref="formAuthenticationFilter"/>
+            </util:map>
+        </property>
 
         <!-- 自定义的过滤器链，从上向下执行，一般将`/**`放到最下面 -->
         <property name="filterChainDefinitions">
@@ -163,7 +163,7 @@
                 /js/** = anon
                 /jsps/login.jsp = anon
                 <!-- 登录url验证后通过 -->
-                /login.do = anon
+                /login = authc
                 <!--验证码不拦截-->
                 /getCaptcha = anon
                 <!-- Shiro提供了退出登录的配置`logout`，会生成路径为`/logout`的请求地址，访问这个地址即会退出当前账户并清空缓存 -->
