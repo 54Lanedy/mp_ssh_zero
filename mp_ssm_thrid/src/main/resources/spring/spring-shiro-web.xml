@@ -6,44 +6,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- Shiro的Web过滤器 -->
-    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-        <!-- Shiro的安全管理器，所有关于安全的操作都会经过SecurityManager -->
-        <property name="securityManager" ref="securityManager"/>
-        <!-- 项目启动时会访问这个url，如果用户退出即session丢失也会访问这个url，url可以是页面或应用地址 -->
-        <property name="loginUrl" value="/login"/>
-        <!-- 登陆成功访问的路径 -->
-        <property name="successUrl" value="/main"/>
-        <!-- 权限验证失败跳转的页面，需要配合Spring的ExceptionHandler异常处理机制使用 -->
-        <property name="unauthorizedUrl" value="/jsps/unauthorized.jsp"/>
-        <property name="filters">
-            <util:map>
-                <entry key="authc" value-ref="formAuthenticationFilter"/>
-            </util:map>
-        </property>
-
-        <!-- 自定义的过滤器链，从上向下执行，一般将`/**`放到最下面 -->
-        <property name="filterChainDefinitions">
-            <value>
-                <!-- 静态资源不拦截 -->
-                /static/** = anon
-                /js/** = anon
-                /jsps/login.jsp = anon
-                <!-- 登录url验证后通过 -->
-                /login = authc
-                <!--验证码不拦截-->
-                /getCaptcha = anon
-                <!-- Shiro提供了退出登录的配置`logout`，会生成路径为`/logout`的请求地址，访问这个地址即会退出当前账户并清空缓存 -->
-                /logout = logout
-                <!-- user表示身份通过或通过记住我通过的用户都能访问系统 -->
-                <!--/main = user-->
-                <!-- authc表示访问该地址用户必须身份验证通过，即Subject.isAuthenticated() == true -->
-                /jsps/authenticated.jsp = authc
-                <!-- `/**`表示所有请求，表示访问该地址的用户是身份验证通过或RememberMe登录的都可以 -->
-                /** = user
-            </value>
-        </property>
-    </bean>
     <!--
     基于form表单身份验证过滤器,只针对loginUrl指定url页面被<shiro-guest></shiro-guest>标记的表单做验证。默认/login.jsp。
     【使用此过滤器】或者【自定义登陆方法】都可以实现登陆。
@@ -176,6 +138,44 @@
     <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
         <property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"/>
         <property name="arguments" ref="securityManager"/>
+    </bean>
+    <!-- Shiro的Web过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- Shiro的安全管理器，所有关于安全的操作都会经过SecurityManager -->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 项目启动时会访问这个url，如果用户退出即session丢失也会访问这个url，url可以是页面或应用地址 -->
+        <property name="loginUrl" value="/login.do"/>
+        <!-- 登陆成功访问的路径 -->
+        <property name="successUrl" value="/main"/>
+        <!-- 权限验证失败跳转的页面，需要配合Spring的ExceptionHandler异常处理机制使用 -->
+        <property name="unauthorizedUrl" value="/jsps/unauthorized.jsp"/>
+        <!--<property name="filters">-->
+            <!--<util:map>-->
+                <!--<entry key="authc" value-ref="formAuthenticationFilter"/>-->
+            <!--</util:map>-->
+        <!--</property>-->
+
+        <!-- 自定义的过滤器链，从上向下执行，一般将`/**`放到最下面 -->
+        <property name="filterChainDefinitions">
+            <value>
+                <!-- 静态资源不拦截 -->
+                /static/** = anon
+                /js/** = anon
+                /jsps/login.jsp = anon
+                <!-- 登录url验证后通过 -->
+                /login.do = anon
+                <!--验证码不拦截-->
+                /getCaptcha = anon
+                <!-- Shiro提供了退出登录的配置`logout`，会生成路径为`/logout`的请求地址，访问这个地址即会退出当前账户并清空缓存 -->
+                /logout = logout
+                <!-- user表示身份通过或通过记住我通过的用户都能访问系统 -->
+                <!--/main = user-->
+                <!-- authc表示访问该地址用户必须身份验证通过，即Subject.isAuthenticated() == true -->
+                /jsps/authenticated.jsp = authc
+                <!-- `/**`表示所有请求，表示访问该地址的用户是身份验证通过或RememberMe登录的都可以 -->
+                /** = user
+            </value>
+        </property>
     </bean>
     <!-- Shiro生命周期处理器-->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>

@@ -31,7 +31,7 @@ public class LoginController {
      */
 //    @ResponseBody
 //    @RequestMapping(value = "/login")
-    public JsonVO login(@RequestParam(value = "username", required = false) String username,
+    public String login(@RequestParam(value = "username", required = false) String username,
                         @RequestParam(value = "password", required = false) String password,
                         @RequestParam(value = "remember", required = false) String remember,
                         Model model
@@ -51,8 +51,8 @@ public class LoginController {
             try {
                 subject.login(token);
                 System.out.println("登陆成功");
-//                return "redirect:main";
-                return new JsonVO(true,"登陆成功");
+                return "redirect:main";
+//                return new JsonVO(true,"登陆成功");
             }catch (UnknownAccountException e){
                 message="用户"+username+"不存在"+e.getMessage();
                 e.printStackTrace();
@@ -75,9 +75,9 @@ public class LoginController {
         }else {
             message="请填写用户名和密码";
         }
-//        model.addAttribute("message",message);
-        return new JsonVO(false,message);
-//        return "login";
+        model.addAttribute("message",message);
+//        return new JsonVO(false,message);
+        return "login";
     }
     /**
      * 登录成功，跳转到首页
