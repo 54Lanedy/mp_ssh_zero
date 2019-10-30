@@ -20,8 +20,6 @@
         <property name="usernameParam" value="username"/>
         <property name="passwordParam" value="password"/>
         <property name="rememberMeParam" value="remember"/>
-        <!--  要求登录时的链接(登录页面地址) -->
-        <property name="loginUrl" value="/login"/>
     </bean>
 
     <!-- Realm实现,实质是shiro的安全DAO -->
@@ -144,7 +142,7 @@
         <!-- Shiro的安全管理器，所有关于安全的操作都会经过SecurityManager -->
         <property name="securityManager" ref="securityManager"/>
         <!-- 项目启动时会访问这个url，如果用户退出即session丢失也会访问这个url，url可以是页面或应用地址 -->
-        <property name="loginUrl" value="/login.do"/>
+        <property name="loginUrl" value="/login"/>
         <!-- 登陆成功访问的路径 -->
         <property name="successUrl" value="/main"/>
         <!-- 权限验证失败跳转的页面，需要配合Spring的ExceptionHandler异常处理机制使用 -->

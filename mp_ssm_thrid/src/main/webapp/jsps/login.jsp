@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="container">
-    <h2 style="text-align:center">用户登陆</h2>
+    <h2 style="text-align:center">用户登陆admin/123</h2>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
 <shiro:guest>
